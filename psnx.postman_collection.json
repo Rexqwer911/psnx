@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "d3bafd51-af33-4d42-ac61-95d44ed636d0",
+		"name": "psnx",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15181269",
+		"_collection_link": "https://galactic-capsule-756526.postman.co/workspace/%D0%9A%D0%BE%D0%BD%D0%B2%D0%B5%D0%B9%D0%B5%D1%80~7aeeda53-1587-431a-a189-d499957d7a0b/collection/15181269-d3bafd51-af33-4d42-ac61-95d44ed636d0?action=share&source=collection_link&creator=15181269"
+	},
+	"item": [
+		{
+			"name": "paysonix-test-request",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Token",
+						"value": "changeMe",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name5",
+							"value": "value5",
+							"type": "text"
+						},
+						{
+							"key": "name2",
+							"value": "value2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/hashFormdataParameters/123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"hashFormdataParameters",
+						"123"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
