@@ -52,29 +52,18 @@ public class MainController {
                     .build());
         }
 
-        try {
-            return ResponseEntity.ok(ResponseDTO.builder()
-                .status(ResponseStatus.success)
-                .result(Result.builder()
-                    .signature(mainService.generateHmacSHA256Hash(mainService.generateSortedParamsString(paramMap)))
-                    .build())
-                .build());
-        } catch (Exception e) {
-            return ResponseEntity
-            .status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(ResponseDTO.builder()
-                .status(ResponseStatus.fail)
-                .result(Result.builder().build())
-                .build());
-        }
+        return ResponseEntity.ok(ResponseDTO.builder()
+            .status(ResponseStatus.success)
+            .result(Result.builder()
+                .signature(mainService.generateHmacSHA256Hash(mainService.generateSortedParamsString(paramMap)))
+                .build())
+            .build());
     }
 
     @Data
     @Builder
     public static class ResponseDTO {
-    
         private ResponseStatus status;
-
         private Result result;
         
     }

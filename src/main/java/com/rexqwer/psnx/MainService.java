@@ -1,26 +1,22 @@
 package com.rexqwer.psnx;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-
-import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.HmacAlgorithms;
+import org.apache.commons.codec.digest.HmacUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
 public class MainService {
 
     @Value("${secretKey}")
     private String secret;
+
+    private static final HmacAlgorithms HMAC_SHA256_ALGORITHM = HmacAlgorithms.HMAC_SHA_256;
 
     /**
      * Генерирует отсортированную строку из переданных параметров запроса.
@@ -45,18 +41,8 @@ public class MainService {
      *
      * @param data строка для хеширования
      * @return хешированная строка
-     * @throws Exception в случае ошибки при генерации хеша
      */
-    public String generateHmacSHA256Hash(String data) throws Exception {
-        try {
-            Mac sha256HMAC = Mac.getInstance("HmacSHA256");
-            SecretKeySpec secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
-            sha256HMAC.init(secretKey);
-            byte[] hashByte = sha256HMAC.doFinal(data.getBytes(StandardCharsets.UTF_8));
-            return Hex.encodeHexString(hashByte);
-        } catch (Exception e) {
-            log.error("Ошибка при генерации HMAC SHA256 hash", e);
-            throw new Exception("Ошибка при генерации HMAC SHA256 hash", e);
-        }
+    public String generateHmacSHA256Hash(String data) {
+        return new HmacUtils(HMAC_SHA256_ALGORITHM, secret).hmacHex(data);
     }
 }
